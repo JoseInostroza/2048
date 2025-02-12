@@ -24,11 +24,10 @@ document.addEventListener('DOMContentLoaded', ()=>{
     //generate new numbers
     function generateNumber() {
         const random = Math.floor(Math.random() * squares.length)
-        console.log(random);
         
         if (squares[random].innerHTML == 0) {
             squares[random].innerHTML = 2
-            //geme over
+            checkForLose()
         }else generateNumber()
         
     }
@@ -143,7 +142,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
             }
         }
         checkForWin()
-        checkForLose()
     }
 
     function conbineColumn(){
@@ -157,7 +155,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
             }
         }
         checkForWin()
-        checkForLose()
     }
 
     //assing funtion to keys 
@@ -206,6 +203,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
             if(squares[i].innerHTML === 2048){
                 resultDisplay.innerHTML = "YOU WIN!!!"
                 document.removeEventListener("keydown", control);
+                setTimeout(clear, 3000)
             }
         }
     }
@@ -220,8 +218,13 @@ document.addEventListener('DOMContentLoaded', ()=>{
         if(zeros === 0){
             resultDisplay.innerHTML = "YOU LOSE!!!"
             document.removeEventListener("keydown", control);
+            setTimeout(clear, 3000)
         }
 
+    }
+
+    function clear(){
+        clearInterval(myTimer)
     }
 
     //add colors 
@@ -239,6 +242,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
             else if(squares[i].innerHTML == 512){                squares[i].style.backgroundColor = "#76daff"            }
             else if(squares[i].innerHTML == 1024){                squares[i].style.backgroundColor = "#beeaa5"}
             else if(squares[i].innerHTML == 2048){squares[i].style.backgroundColor="d7d4f0"}
+            console.log('runing');
+            
         }}
     addColors()
     let myTimer = setInterval(addColors, 50)
